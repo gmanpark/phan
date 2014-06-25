@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="icon" href="data:;base64,=">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+</head>
+<body>
+<div>
+    해상도 : <input type="text" size="10" id="target-width" placeholder="1903"> X <input type="text" size="10" id="target-height" placeholder="995">
+    <br>
+    사이트 주소 : <input type="text" id="sURL" size="40" placeholder="http://www.naver.com">
+    <br>
+    css파일 :<input type="file">
+</div>
+<button onclick="javascript:render();">Rendering</button>
+
+<script>
+
+    function render() {
+        var sURL = document.getElementById('sURL').value;
+        var nWidth = parseInt(document.getElementById('target-width').value,10);
+        var nHeight = parseInt(document.getElementById('target-height').value,10);
+        $.ajax({
+            type: "GET",
+            url: "http://phan.herokuapp.com//parse",
+            data: {sUrl: sURL, width: nWidth, height: nHeight}
+        }).done(function() {
+            setTimeout(function () {
+                var openNewWindow = window.open("about:blank");
+                openNewWindow.location.href = 'render.html';
+            }, 5000);
+        });
+    }
+</script>
+</body>
+</html>
